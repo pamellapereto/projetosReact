@@ -1,7 +1,7 @@
 import { Container } from "./style";
 import { MovieList } from "./style";
 import { Movie } from "./style";
-import { api } from "../config/key";
+import { APIKey } from "../config/key";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -12,8 +12,9 @@ export default function Home() {
 
     useEffect(() => {
 
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${api}&language=en-US&page=1`);
-
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKey}&language=en-US&page=1`)
+        .then(response => response.json())
+        .then(data => console.log(data.results))
     }, [])
 
 
