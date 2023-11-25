@@ -3,8 +3,11 @@ import { MovieList } from "./style";
 import { Movie } from "./style";
 import { APIKey } from "../config/key";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
+
+    const img_path = "https://image.tmdb.org/t/p/w500/"
 
 
     const [movies, setMovies] = useState([])
@@ -12,32 +15,13 @@ export default function Home() {
 
     useEffect(() => {
 
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKey}&language=en-US&page=1`)
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKey}&language=pt-BR&page=1`)
         .then(response => response.json())
-        .then(data => console.log(data.results))
+        .then(data => {
+            console.log(data.results)
+            setMovies(data.results)
+        })
     }, [])
-
-
-
-
-    /*const movies = [
-        {
-            title: "Ilha do medo",
-            image_url: "https://musicimage.xboxlive.com/catalog/video.movie.8D6KGWZL59L2/image?locale=pt-br&mode=crop&purposes=BoxArt&q=90&h=300&w=200&format=jpg"
-        },
-
-        {
-            title: "Ilha do medo 2",
-            image_url: "https://musicimage.xboxlive.com/catalog/video.movie.8D6KGWZL59L2/image?locale=pt-br&mode=crop&purposes=BoxArt&q=90&h=300&w=200&format=jpg"
-        },
-
-        {
-            title: "Ilha do medo 3",
-            image_url: "https://musicimage.xboxlive.com/catalog/video.movie.8D6KGWZL59L2/image?locale=pt-br&mode=crop&purposes=BoxArt&q=90&h=300&w=200&format=jpg"
-        }
-    ]*/
-
-
 
 
     return (
@@ -48,10 +32,11 @@ export default function Home() {
                 {
                     movies.map(movie => {
                         return (
-                            <Movie>
-                                <a href="https://www.google.com">
-                                    <img src={movie.image_url} alt={movie.title} />
-                                </a>
+                            <Movie key={movie.id}>
+                               <Link to = {`/details/${movie.id}`}>
+                                    <img src={`${img_path}${movie.poster_path}`} alt={movie.title} />
+                                </Link>
+                                
                                 <span>{movie.title}</span>
                             </Movie>
                         )
