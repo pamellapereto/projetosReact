@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { APIKey } from "../config/key";
-
 import { useParams } from "react-router-dom";
+import { Container } from "./style";
+import { Link } from "react-router-dom";
 
 
 function Details() {
@@ -27,6 +28,8 @@ function Details() {
                     title: data.title,
                     overview: data.overview,
                     releaseDate: data.release_date,
+                    vote_average: data.vote_average,
+                    vote_count: data.vote_count,
                     filme: `${img_path}${data.poster_path}`
                 }
                 setMovie(movie)
@@ -35,15 +38,23 @@ function Details() {
 
 
     return (
-        <div>
+        <Container>
 
-            <img src={movie.filme} alt={movie.title}/>
-            <h1>{movie.title}</h1>
-            <span>Sinopse: {movie.overview}</span>
-            <span>Data de lançamento: {movie.releaseDate}</span>
-            <button>Retornar ao catálogo</button>
-            
-        </div>
+            <div className="details">
+                <img src={movie.filme} alt={movie.title} />
+
+                <div className="info">
+                    <h1>{movie.title}</h1>
+                    <span>Sinopse: {movie.overview}</span>
+                    <span className="release">Data de lançamento: {movie.releaseDate}</span>
+                    <span>Avaliação: {movie.vote_average}</span>
+                    <span>Likes: {movie.vote_count}</span>
+                    
+                    <Link to="/"><button>Retornar ao catálogo</button></Link>
+                </div>
+            </div>
+
+        </Container>
     )
 }
 
