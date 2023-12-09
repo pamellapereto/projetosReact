@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { APIKey } from "../config/key";
+
 import { useParams } from "react-router-dom";
+import { APIKey } from "../config/key";
+import { useState, useEffect } from "react";
 import { Container } from "./style";
 import { Link } from "react-router-dom";
 
-
 function Details() {
 
-    const img_path = "https://image.tmdb.org/t/p/w500/"
+    const img_path = 'https://image.tmdb.org/t/p/w500/'
     const trailer_path = "https://youtube.com/embed/"
 
     const { id } = useParams();
 
     console.log(id);
 
-    const [movie, setMovie] = useState([]);
+    const [movie, setMovies] = useState([]);
 
     const [trailer, setTrailer] = useState([]);
 
@@ -30,12 +30,13 @@ function Details() {
                     id,
                     title: data.title,
                     overview: data.overview,
-                    releaseDate: data.release_date,
+                    releaseDate: data.release_data,
                     vote_average: data.vote_average,
                     vote_count: data.vote_count,
-                    filme: `${img_path}${data.poster_path}`
+                    poster_path: `${img_path}${data.poster_path}`
                 }
-                setMovie(movie)
+
+                setMovies(movie)
             })
     }, [id])
 
@@ -48,12 +49,13 @@ function Details() {
 
                 if (data.results.length > 0) {
 
-                    const trailer = {
-                        name: data.results[0].name,
-                        key: `${trailer_path}${data.results[0].key}`
+                const trailer = {
+                    name: data.results[0].name,
+                    key: `${trailer_path}${data.results[0].key}`,
 
-                    }
-                    setTrailer(trailer)
+                }
+
+                setTrailer(trailer)
                 }
             })
     }, [id])
@@ -63,32 +65,24 @@ function Details() {
         <Container>
 
             <div className="details">
-                <img src={movie.filme} alt={movie.title} />
+                <img src={movie.poster_path} alt={movie.title} />
 
                 <div className="info">
                     <h1>{movie.title}</h1>
                     <span>Sinopse: {movie.overview}</span>
-                    <span className="release">Data de lançamento: {movie.releaseDate}</span>
+                    <span className="release">Data de Lançamento: {movie.releaseDate}</span>
                     <span>Avaliação: {movie.vote_average}</span>
                     <span>Likes: {movie.vote_count}</span>
 
-                    <Link to="/"><button>Retornar ao catálogo</button></Link>
+                    <Link to="/"><button>Retornar ao Catálogo</button></Link>
                 </div>
             </div>
 
             <div className="trailer">
 
-
-                <iframe width="560" height="315" src={trailer.key}
-                    title={trailer.name} class="embed hide" frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; picture-in-picture">
-
-                </iframe>
-
-
+                <iframe width="560" height="315" src={trailer.key} title={trailer.name} class="embed hide" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; picture-in-picture"></iframe>
 
             </div>
-
         </Container>
     )
 }
