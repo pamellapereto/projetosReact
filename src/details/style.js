@@ -55,4 +55,10 @@ export const Container = styled.div`
         background: #5848c2;
     }
 
+    .trailer {
+        margin-top: 50px;
+        text-align: center;
+        padding: 10px;
+    }
+
 `

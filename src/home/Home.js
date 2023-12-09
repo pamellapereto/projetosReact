@@ -16,7 +16,7 @@ export default function Home() {
     useEffect(() => {
 
         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKey}&language=pt-BR&page=1`)
-        .then(response => response.json())
+        .then(response => response.json()) 
         .then(data => {
             console.log(data.results)
             setMovies(data.results)
