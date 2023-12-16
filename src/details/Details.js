@@ -4,6 +4,9 @@ import { APIKey } from "../config/key";
 import { useState, useEffect } from "react";
 import { Container } from "./style";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 function Details() {
 
@@ -30,7 +33,7 @@ function Details() {
                     id,
                     title: data.title,
                     overview: data.overview,
-                    releaseDate: data.release_data,
+                    releaseDate: data.release_date,
                     vote_average: data.vote_average,
                     vote_count: data.vote_count,
                     poster_path: `${img_path}${data.poster_path}`
@@ -74,7 +77,7 @@ function Details() {
                     <span>Avaliação: {movie.vote_average}</span>
                     <span>Likes: {movie.vote_count}</span>
 
-                    <Link to="/"><button>Retornar ao Catálogo</button></Link>
+                    <Link to="/"><FontAwesomeIcon icon={faCircleLeft} beatFade size="2xl" style={{color: "#29b6f6",}} /></Link>
                 </div>
             </div>
 
